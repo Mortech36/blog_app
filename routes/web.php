@@ -26,14 +26,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::prefix('post')->group(function () {
             Route::controller(PostController::class)->group(function () {
                 Route::get('/create','index')->name('post.create');
-                Route::get('/manage','index')->name('post.manage');
+                Route::get('/manage','manage')->name('post.manage');
                 
             });
             Route::controller(MasterPostController::class)->group(function () {
-                Route::post('/store/subcategory','storesubcat')->name('store.subcat');
-                Route::get('/subcategory/{id}','showsubcat')->name('show.subcat');
-                Route::put('/subcategory/update/{id}','updatesubcat')->name('update.subcat');
-                Route::delete('/subcategory/delete/{id}','deletesubcat')->name('delete.subcat');
+                Route::post('/store','storepost')->name('post.store');
+                Route::get('/{id}','showpost')->name('post.show');
+                Route::put('/update/{id}','updatepost')->name('post.update');
+                Route::delete('/delete/{id}','deletepost')->name('post.delete');
             });
           
         });
