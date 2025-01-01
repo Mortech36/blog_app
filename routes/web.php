@@ -23,20 +23,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/cart/history','cart_history')->name('admin.cart.history');
             Route::get('/order/history','order_history')->name('admin.order.history');
         });
-        Route::prefix('post')->group(function () {
-            Route::controller(PostController::class)->group(function () {
-                Route::get('/create','index')->name('post.create');
-                Route::get('/manage','index')->name('post.manage');
-                
-            });
-            Route::controller(MasterPostController::class)->group(function () {
-                Route::post('/store/subcategory','storesubcat')->name('store.subcat');
-                Route::get('/subcategory/{id}','showsubcat')->name('show.subcat');
-                Route::put('/subcategory/update/{id}','updatesubcat')->name('update.subcat');
-                Route::delete('/subcategory/delete/{id}','deletesubcat')->name('delete.subcat');
-            });
-          
+        Route::controller(PostController::class)->group(function () {
+            Route::get('post/create','index')->name('post.create');
+            Route::get('post/manage','manage')->name('post.manage');
         });
+        Route::controller(MasterPostController::class)->group(function () {
+            Route::post('post/store','storepost')->name('post.store');
+            Route::get('post/{id}','showpost')->name('post.show');
+            Route::put('post/update/{id}','updatepost')->name('post.update');
+            Route::delete('post/delete/{id}','deletepost')->name('post.delete');
+        });
+      
         Route::controller(CategoryController::class)->group(function () {
             Route::get('/category/create','index')->name('category.create');
             Route::get('/category/manage','manage')->name('category.manage');

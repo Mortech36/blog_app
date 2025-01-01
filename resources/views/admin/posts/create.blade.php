@@ -25,7 +25,7 @@
                   </div>
                @endif
 
-               <form action="{{route('post.create')}}" method="POST">
+               <form action="{{route('post.store')}}" method="POST" enctype="multipart/form-data">
                   @csrf
                   <label for="post_name" class="fw-bold mb-2">Enter Name of Your Post</label>
                   <input type="text" class="form-control" placeholder="Computer" name="post_name">
@@ -38,7 +38,7 @@
                   </select>
                   <label for="description" class="fw-bold mb-2">Describe Your Post</label>
                   <textarea class="form-control" spellcheck="false" placeholder="Describe everything about this post here" name="description"></textarea>
-                  <label for="post_image" class="fw-bold mb-2">Choose an Image</label>
+                  <label for="image" class="fw-bold mb-2">Choose an Image</label>
                   <input  class="form-control" spellcheck="false" placeholder="Post Image" type="file" name="image">
                   <button type="submit" class="btn btn-primary w-100 mt-2">Add Post</button>
                </form>

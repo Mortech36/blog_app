@@ -16,6 +16,6 @@ class PostController extends Controller
 
     public function manage(){
         $posts = Post::all();
-        return view('admin.posts.manage',compact('posts'));
+        return view('admin.posts.show',compact('posts'));
     }
 }
