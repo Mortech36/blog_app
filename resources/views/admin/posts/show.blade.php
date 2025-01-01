@@ -32,30 +32,30 @@
                   </tr>
                 </thead>
                 <tbody>
-                    @forelse ($posts as $post)
-                    <tr class="hover:bg-slate-50">
-                        <td class="p-4">
-                            <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image" />
-                        </td>
-                        <td class="p-4">{{ $post->title }}</td>
-                        <td class="p-4">{{ $post->description }}</td>
-                        <td class="p-4">{{ $post->name }}</td>
-                        <td class="p-4">{{ $post->post_status }}</td>
-                        <td class="p-4">{{ $post->usertype }}</td>
-                        <td>
-                            <div class="flex space-x-4 p-4">
-                                <button onclick="confirmDelete({{ $post->id }})" class="btn btn-danger">Delete</button>
-                                <a href="{{ url('update_post_page', $post->id) }}" class="btn btn-secondary">Update</a>
-                                <a href="{{ url('accept_post', $post->id) }}" class="btn btn-success">Accept</a>
-                                <a href="{{ url('reject_post', $post->id) }}" class="btn btn-primary">Reject</a>
-                            </div>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="7" class="text-center p-4">No posts available</td>
-                    </tr>
-                    @endforelse
+                  @forelse ($posts as $post)
+                  <tr class="hover:bg-slate-50">
+                      <td class="p-4">
+                          <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image" />
+                      </td>
+                      <td class="p-4">{{ $post->post_name }}</td>
+                      <td class="p-4">{{ $post->description }}</td>
+                      <td class="p-4">{{ $post->name }}</td>
+                      <td class="p-4">{{ $post->post_status }}</td>
+                      <td class="p-4">{{ $post->usertype }}</td>
+                      <td>
+                          <div class="flex space-x-4 p-4">
+                              <button onclick="confirmDelete({{ $post->id }})" class="btn btn-danger">Delete</button>
+                              <a href="{{ url('update_post_page', $post->id) }}" class="btn btn-secondary">Update</a>
+                              <a href="{{ url('accept_post', $post->id) }}" class="btn btn-success">Accept</a>
+                              <a href="{{ url('reject_post', $post->id) }}" class="btn btn-primary">Reject</a>
+                          </div>
+                      </td>
+                  </tr>
+                  @empty
+                  <tr>
+                      <td colspan="7" class="text-center p-4">No posts available</td>
+                  </tr>
+                  @endforelse
                 </tbody>
               </table>
             </div>
@@ -66,6 +66,10 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<form id="deleteForm" action="{{ route('post.delete', ':id') }}" method="POST" style="display:none;">
+   @csrf
+   @method('DELETE')
+</form>
 <script>
    function confirmDelete(postId) {
        Swal.fire({
@@ -78,28 +82,12 @@
            confirmButtonText: "Yes, delete it!"
        }).then((result) => {
            if (result.isConfirmed) {
-               // Create a hidden form and submit it for deletion
-               const form = document.createElement("form");
-               form.action = `{{route("post.delete", $post->id)}}`;
-               form.method = "POST";
-
-               const csrfInput = document.createElement("input");
-               csrfInput.type = "hidden";
-               csrfInput.name = "_token";
-               csrfInput.value = "{{ csrf_token() }}";
-               form.appendChild(csrfInput);
-
-               const methodInput = document.createElement("input");
-               methodInput.type = "hidden";
-               methodInput.name = "_method";
-               methodInput.value = "DELETE";
-               form.appendChild(methodInput);
-
-               document.body.appendChild(form);
+               let form = document.getElementById('deleteForm');
+               form.action = form.action.replace(':id', postId);
                form.submit();
            }
-    });
-
+       });
    }
 </script>
+
 @endsection

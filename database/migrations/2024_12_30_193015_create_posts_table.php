@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->foreignId('user_id')->nullable();
             $table->string('post_status')->nullable();
-            $table->string('usertype')->nullable();
             $table->unsignedBigInteger('category_id');
+            $table->string('usertype')->nullable();
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });

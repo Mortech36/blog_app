@@ -26,7 +26,7 @@
                      </tr>
                   </thead>
                   <tbody>
-                     @foreach ($categories as $category)
+                     @forelse ($categories as $category)
                      <tr>
                         <td>{{ $category->id }}</td>
                         <td>{{ $category->category_name }}</td>
@@ -37,7 +37,11 @@
                            </div>
                          </td>
                      </tr>
-                     @endforeach
+                     @empty
+                     <tr>
+                         <td colspan="7" class="text-center p-4">No Category available</td>
+                     </tr>
+                     @endforelse
                   </tbody>
                </table>
             </div>
@@ -46,6 +50,13 @@
       </div>
    </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<form id="deleteForm" method="POST" style="display:none;">
+   @csrf
+   @method('DELETE')
+</form>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
@@ -60,24 +71,8 @@
            confirmButtonText: "Yes, delete it!"
        }).then((result) => {
            if (result.isConfirmed) {
-               // Create a hidden form and submit it for deletion
-               const form = document.createElement("form");
-               form.action = `{{route("delete.cat", $category->id)}}`;
-               form.method = "POST";
-
-               const csrfInput = document.createElement("input");
-               csrfInput.type = "hidden";
-               csrfInput.name = "_token";
-               csrfInput.value = "{{ csrf_token() }}";
-               form.appendChild(csrfInput);
-
-               const methodInput = document.createElement("input");
-               methodInput.type = "hidden";
-               methodInput.name = "_method";
-               methodInput.value = "DELETE";
-               form.appendChild(methodInput);
-
-               document.body.appendChild(form);
+               let form = document.getElementById('deleteForm');
+               form.action = `{{ route('delete.cat', ':id') }}`.replace(':id', categoryId);
                form.submit();
            }
        });

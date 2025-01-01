@@ -31,6 +31,7 @@ class MasterPostController extends Controller
             'category_id' => $request->category_id,
             'user_id' => auth()->id(),
             'name' => auth()->user()->name, // Authenticated user's name
+            'usertype' => auth()->user()->usertype,
             'post_status' => 'Accepted', // Post status
             'image' => $imagePath, // Save the image path
         ]);
