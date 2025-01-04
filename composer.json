@@ -5,6 +5,18 @@
     "description": "The skeleton application for the Laravel framework.",
     "keywords": ["laravel", "framework"],
     "license": "MIT",
+    "homepage": "https://github.com/yourusername/yourproject",
+    "support": {
+        "issues": "https://github.com/yourusername/yourproject/issues",
+        "source": "https://github.com/yourusername/yourproject"
+    },
+    "authors": [
+        {
+            "name": "Your Name",
+            "email": "your-email@example.com",
+            "role": "Developer"
+        }
+    ],
     "require": {
         "php": "^8.2",
         "laravel/breeze": "^2.3",

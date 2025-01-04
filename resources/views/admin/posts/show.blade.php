@@ -35,7 +35,7 @@
                   @forelse ($posts as $post)
                   <tr class="hover:bg-slate-50">
                       <td class="p-4">
-                          <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image" />
+                          <img src="{{ asset('storage/' . $post->image) }}" alt="Post Image"  class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;" />
                       </td>
                       <td class="p-4">{{ $post->post_name }}</td>
                       <td class="p-4">{{ $post->description }}</td>
